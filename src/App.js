@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Button from "./widgets/button/Button";
+import TextBox from "./widgets/textbox/TextBox";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
+      <center>
+        <TextBox
+          _generics={{ rows: "20" }}
+          textarea
+          onChange={(e) => console.log("I am the shit", e.target.value)}
+        />
+        <Button
+          onClick={(e) =>
+            console.log("i am the the button being clicked my Geeee")
+          }
         >
-          Learn React
-        </a>
-      </header>
+          I am the children bro
+        </Button>
+      </center>
     </div>
   );
 }
