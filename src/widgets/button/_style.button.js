@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { theme_active, theme_hover } from "../shared/_shared.styles";
+import { THEME_ACTIVE_COLOR, THEME_HOVER_COLOR } from "../shared/_shared.styles";
 
 export const remove_defaults = css`
   padding: 10px 15px;
@@ -19,11 +19,11 @@ export const default_btn = css`
   color: white;
   border-radius: 4px;
   &:hover {
-    background: ${theme_hover};
+    background: ${THEME_HOVER_COLOR};
     transition: 0.2s ease-out;
   }
   &:active {
-    background: ${theme_active};
+    background: ${THEME_ACTIVE_COLOR};
     transition: 0.2s ease-out;
   }
 `;

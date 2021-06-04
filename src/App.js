@@ -1,6 +1,8 @@
 import "./App.css";
-import Button from "./widgets/button/Button";
-import TextBox from "./widgets/textbox/TextBox";
+// import Button from "./widgets/button/Button";
+import CheckBox from "./widgets/checkbox/CheckBox";
+import RadioGroup from "./widgets/radio-group/RadioGroup";
+// import TextBox from "./widgets/textbox/TextBox";
 
 function App() {
   return (
@@ -13,7 +15,9 @@ function App() {
       }}
     >
       <center>
-        <TextBox
+        <CheckBox />
+        <RadioGroup checked />
+        {/* <TextBox
           _generics={{ rows: "20" }}
           textarea
           onChange={(e) => console.log("I am the shit", e.target.value)}
@@ -26,7 +30,7 @@ function App() {
        
         >
           I am the children bro
-        </Button>
+        </Button> */}
       </center>
     </div>
   );

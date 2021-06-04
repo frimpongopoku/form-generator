@@ -1,8 +1,11 @@
 import { css } from "@emotion/css";
-export const theme_color = "purple";
-export const theme_hover = "#9d41c3";
-export const theme_active = "#531a6b";
+export const THEME_COLOR = "purple";
+export const THEME_HOVER_COLOR = "#9d41c3";
+export const THEME_ACTIVE_COLOR = "#531a6b";
 
+export const raise = css`
+  box-shadow: 0px 1px 2px #9e9e9e;
+`;
 const z_depth_half = css`
   box-shadow: 0 1px 0px 0 rgb(0 0 0 / 0%), 0 2px 4px 0 rgb(0 0 0 / 3%);
 `;
