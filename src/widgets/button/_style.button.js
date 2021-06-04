@@ -27,3 +27,6 @@ export const default_btn = css`
     transition: 0.2s ease-out;
   }
 `;
+export const round_me = css`
+  border-radius: 55px;
+`;

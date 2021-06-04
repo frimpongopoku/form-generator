@@ -1,7 +1,7 @@
 import { css } from "@emotion/css";
 export const theme_color = "purple";
-export const theme_hover ="#9d41c3";
-export const theme_active ="#531a6b";
+export const theme_hover = "#9d41c3";
+export const theme_active = "#531a6b";
 
 const z_depth_half = css`
   box-shadow: 0 1px 0px 0 rgb(0 0 0 / 0%), 0 2px 4px 0 rgb(0 0 0 / 3%);
@@ -43,19 +43,22 @@ const z_depth_5 = css`
     0 40px 77px 0 rgba(0, 0, 0, 0.22) !important;
 `;
 const z_depth_float = css`
- .z-depth-float 
   box-shadow: 0 1px 0px 0 rgba(0, 0, 0, -1.84), 0 2px 10px 0 rgba(0, 0, 0, 0.1) !important;
   -webkit-box-shadow: 0 1px 0px 0 rgba(0, 0, 0, -1.84),
     0 2px 10px 0 rgba(0, 0, 0, 0.1) !important;
+`;
 
+const z_depth_zero = css`
+  box-shadow: 0 0 0;
 `;
 /**
  * The integer value provided resolves to a corresponding cass class that will give a box shadow to an element
  * @param {Number} depth
  * @returns
  */
-export const performElevation = (depth) => {
+export const elevate = (depth) => {
   const arr = [
+    z_depth_zero,
     z_depth_half,
     z_depth_float,
     z_depth_1,
