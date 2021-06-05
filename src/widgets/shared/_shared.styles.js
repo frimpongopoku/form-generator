@@ -3,6 +3,10 @@ export const THEME_COLOR = "purple";
 export const THEME_HOVER_COLOR = "#9d41c3";
 export const THEME_ACTIVE_COLOR = "#531a6b";
 
+export const putElementInline = css`
+  display: inline-block;
+`;
+
 export const raise = css`
   box-shadow: 0px 1px 2px #9e9e9e;
 `;

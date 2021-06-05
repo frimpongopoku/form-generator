@@ -14,9 +14,19 @@ function App() {
         height: "100vh",
       }}
     >
-      <center>
+      <center style={{ width: 1000 }}>
         <CheckBox />
-        <RadioGroup checked />
+        <RadioGroup
+          onItemSelected={(value) => console.log("I am the value bro", value)}
+          data={[
+            { name: "keskeshi" },
+            { name: "ogbemi" },
+            { name: "tabaluga" },
+          ]}
+          // labelFieldName="name"
+          valueFieldName="name"
+          defaultValue="Orange"
+        />
         {/* <TextBox
           _generics={{ rows: "20" }}
           textarea

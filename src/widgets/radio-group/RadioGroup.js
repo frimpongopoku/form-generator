@@ -6,61 +6,107 @@ import {
   commonStyleProps,
   commonStylePropValues,
 } from "../shared/_shared.proptypes";
-import { raise } from "../shared/_shared.styles";
-
+import { putElementInline, raise } from "../shared/_shared.styles";
+const NAME = "____name____";
 export default class RadioGroup extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      is_checked: false,
+      selected_item: null,
     };
     this.handleOnItemSelected = this.handleOnItemSelected.bind(this);
   }
 
-  handleOnItemSelected(e) {
-    e.preventDefault();
-    const { onItemSelected, label, value } = this.props;
-    const { is_checked } = this.state;
-    this.setState({ is_checked: !is_checked });
-    if (!onItemSelected) return;
-    onItemSelected(value || label);
+  handleOnItemSelected(value) {
+    const { onItemSelected } = this.props;
+    const valueIsSelectedAlready = value === this.state.selected_item;
+    if (valueIsSelectedAlready) {
+      this.setState({ selected_item: null });
+      if (onItemSelected) onItemSelected(null);
+      return;
+    }
+    this.setState({ selected_item: value });
+    if (onItemSelected) onItemSelected(value);
   }
   componentDidMount() {
-    const { checked } = this.props;
-    this.setState({ is_checked: checked });
+    const { defaultValue } = this.props;
+    if (defaultValue) this.setState({ selected_item: defaultValue });
+  }
+
+  isArrayOfObjects() {
+    /** These two values will be passed by developers if "this.props.data" is an array of objects instead of strings */
+    return (
+      this.props.labelFieldName !== NAME && this.props.valueFieldName !== NAME
+    );
+  }
+
+  itemIsChecked(value) {
+    return value === this.state.selected_item;
+  }
+  renderContent() {
+    const { data, valueFieldName, labelFieldName, groupStyle, groupClassName } =
+      this.props;
+    const dealingWithObjs = this.isArrayOfObjects();
+    if (!data) return <small>Please provide data for radio group...</small>;
+    return data.map((item, index) => {
+      var label, value;
+      if (dealingWithObjs) {
+        value = item[valueFieldName];
+        label = item[labelFieldName];
+      } else {
+        label = item;
+        value = item;
+      }
+      return (
+        <div
+          key={index.toString()}
+          className={`${cx(putElementInline)} ${groupClassName}`}
+          style={groupStyle}
+        >
+          <RadioButton
+            onItemSelected={this.handleOnItemSelected}
+            checked={this.itemIsChecked(value)}
+            label={label}
+            value={value}
+          />
+        </div>
+      );
+    });
   }
 
   render() {
-    const { groupStyle, groupClassName } = this.props;
-
-    return (
-      <div className={groupClassName} style={groupStyle}>
-        <RadioButton
-          {...this.props}
-          onItemSelected={this.handleOnItemSelected}
-          checked={this.state.is_checked}
-        />
-      </div>
-    );
+    return <> {this.renderContent()}</>;
   }
 }
 
 RadioGroup.propTypes = {
   ...commonStyleProps,
-  label: PropTypes.string,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-    PropTypes.number,
-    PropTypes.bool,
-  ]),
+  /** Data to be displayed displayed in the form of radio buttons */
+  data: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.number])
+  ),
+
+  /** Should be provided if an array objects is passed into @data instead of an array of strings */
+  labelFieldName: PropTypes.string,
+  /** Should be provided if an array objects is passed into @data instead of an array of strings. Used to retrive the value from object onItemSelected */
+  valueFieldName: PropTypes.string,
+  /** Provides selected value when any item is selected */
+  onItemSelected: PropTypes.func,
+  /**  Value of item that should be pre-marked on load */
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  groupClassName: PropTypes.string,
+  groupStyle: PropTypes.object,
 };
 
 RadioGroup.defaultProps = {
   ...commonStylePropValues,
-  label: "Select me please...",
-  value: null,
+  data: ["Orange", "Banana", "Mangoes", "Pineaples", "Lettuce"],
+  labelFieldName: NAME,
+  valueFieldName: NAME,
+  defaultValue: null,
+  groupStyle: {},
+  groupClassName: "",
 };
 
 const RadioButton = (props) => {
@@ -71,12 +117,17 @@ const RadioButton = (props) => {
     className,
     onItemSelected,
     checked,
+    value,
+    label,
   } = props;
   const { emptyCircle, defaultContainer, hoveringCheckMarkCss } = radioGroupCSS;
 
   return (
-    <div className={containerClassName} style={containerStyle}>
-      <div className={cx(defaultContainer)} onClick={onItemSelected}>
+    <div className={`${containerClassName}`} style={containerStyle}>
+      <div
+        className={cx(defaultContainer)}
+        onClick={() => onItemSelected(value)}
+      >
         <div style={{ position: "relative" }}>
           <div className={`${cx(emptyCircle)} box`}></div>
           {checked && (
@@ -87,7 +138,7 @@ const RadioButton = (props) => {
         </div>
 
         <p style={style} className={`${className}`}>
-          Select me please...
+          {label && label.toString()}
         </p>
       </div>
     </div>
