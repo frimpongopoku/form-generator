@@ -28,7 +28,7 @@ function App() {
           ]}
           defaultValue={["keskeshi"]}
           labelFieldName="name"
-          valueFieldName="name"
+          // valueFieldName="name"
         />
 
         {/* <TextBox

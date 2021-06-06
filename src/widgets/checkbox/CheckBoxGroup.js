@@ -44,15 +44,8 @@ export default class CheckBoxGroup extends Component {
 
   itemIsSelected(value) {
     const { selected_items } = this.state;
-    // (selected_items || []).forEach( itm => { 
-    //   if (itm === value) return true;
-    // })
-    console.log("i am all the items", selected_items,value);
     const k = selected_items.filter((itm) => itm === value)[0];
-    console.log("found you bitch", k);
-    return k;
-
-    // return false;
+    return value === k;
   }
 
   renderContent() {
@@ -64,7 +57,7 @@ export default class CheckBoxGroup extends Component {
     return data.map((item, index) => {
       var label, value;
       if (dealingWithObjs) {
-        value = item[valueFieldName];
+        value = item[valueFieldName || labelFieldName];
         label = item[labelFieldName];
       } else {
         label = item;
@@ -100,7 +93,7 @@ CheckBoxGroup.propTypes = {
 
   /** Should be provided if an array objects is passed into @data instead of an array of strings */
   labelFieldName: PropTypes.string,
-  /** Should be provided if an array objects is passed into @data instead of an array of strings. Used to retrive the value from object onItemSelected */
+  /** Should be provided if an array objects is passed into @data instead of an array of strings. Used to retrive the value from object onItemSelected. If this is not provided, labelFieldName is used */
   valueFieldName: PropTypes.string,
   /** Provides selected value when any item is selected */
   onItemSelected: PropTypes.func,

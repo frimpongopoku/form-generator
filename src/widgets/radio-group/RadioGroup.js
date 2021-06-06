@@ -46,7 +46,7 @@ export default class RadioGroup extends Component {
     return data.map((item, index) => {
       var label, value;
       if (dealingWithObjs) {
-        value = item[valueFieldName];
+        value = item[valueFieldName || labelFieldName];
         label = item[labelFieldName];
       } else {
         label = item;
@@ -83,7 +83,7 @@ RadioGroup.propTypes = {
 
   /** Should be provided if an array objects is passed into @data instead of an array of strings */
   labelFieldName: PropTypes.string,
-  /** Should be provided if an array objects is passed into @data instead of an array of strings. Used to retrive the value from object onItemSelected */
+  /** Should be provided if an array objects is passed into @data instead of an array of strings. Used to retrive the value from object onItemSelected. f this is not provided, labelFieldName is used  */
   valueFieldName: PropTypes.string,
   /** Provides selected value when any item is selected */
   onItemSelected: PropTypes.func,

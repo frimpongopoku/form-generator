@@ -12,7 +12,6 @@ import {
 export default class CheckBox extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       is_checked: false,
     };
@@ -27,11 +26,13 @@ export default class CheckBox extends Component {
     if (!onItemSelected) return;
     onItemSelected(value || label);
   }
-  componentDidMount() {
-    const { checked } = this.props;
-    this.setState({ is_checked: checked });
-  }
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.checked !== state.is_checked)
+      return { is_checked: props.checked };
+
+    return null;
+  }
   render() {
     const { containerStyle, containerclassName, style, className, label } =
       this.props;

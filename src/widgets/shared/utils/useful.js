@@ -1,6 +1,6 @@
 export const NAME = "____name____";
 export const OBJECT_OBJECT = "[object Object]";
-export const lowKeyValidation = props => {
+export const lowKeyValidation = (props) => {
   const { data, labelFieldName, valueFieldName } = props;
   if (!data)
     console.error(
@@ -8,12 +8,14 @@ export const lowKeyValidation = props => {
     );
   const anyElem = data[0];
 
-  if (
-    anyElem &&
-    anyElem.toString() === OBJECT_OBJECT &&
-    (!labelFieldName || !valueFieldName)
-  )
+  const elemExistsAndIsObj = anyElem && anyElem.toString() === OBJECT_OBJECT;
+  if (elemExistsAndIsObj && !labelFieldName)
     console.error(
-      "Provide the 'labeldFieldName' and 'valueFieldName' field if you pass an array of Objects into 'data' "
+      "Provide the 'labeldFieldName' and field if you pass an array of Objects into 'data' "
     );
-}
+
+  if (elemExistsAndIsObj && !valueFieldName)
+    console.warn(
+      "You did not provide a 'valueFieldName', so your 'labelFieldName' will be used... "
+    );
+};
