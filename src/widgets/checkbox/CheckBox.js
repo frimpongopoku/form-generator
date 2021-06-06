@@ -33,7 +33,8 @@ export default class CheckBox extends Component {
   }
 
   render() {
-    const { containerStyle, containerclassName, style, className } = this.props;
+    const { containerStyle, containerclassName, style, className, label } =
+      this.props;
     const { emptyBox, defaultContainer, hoveringCheckMarkCss } = checkBoxCss;
 
     return (
@@ -50,7 +51,7 @@ export default class CheckBox extends Component {
           </div>
 
           <p style={style} className={`${className}`}>
-            Select me please...
+            {label}
           </p>
         </div>
       </div>

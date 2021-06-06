@@ -1,7 +1,8 @@
 import "./App.css";
 // import Button from "./widgets/button/Button";
 import CheckBox from "./widgets/checkbox/CheckBox";
-import RadioGroup from "./widgets/radio-group/RadioGroup";
+import CheckBoxGroup from "./widgets/checkbox/CheckBoxGroup";
+// import RadioGroup from "./widgets/radio-group/RadioGroup";
 // import TextBox from "./widgets/textbox/TextBox";
 
 function App() {
@@ -16,17 +17,20 @@ function App() {
     >
       <center style={{ width: 1000 }}>
         <CheckBox />
-        <RadioGroup
-          onItemSelected={(value) => console.log("I am the value bro", value)}
+        <CheckBoxGroup
+          onItemSelected={(all, selected) =>
+            console.log("I am the value bro", all, selected)
+          }
           data={[
             { name: "keskeshi" },
             { name: "ogbemi" },
             { name: "tabaluga" },
           ]}
-          // labelFieldName="name"
+          defaultValue={["keskeshi"]}
+          labelFieldName="name"
           valueFieldName="name"
-          defaultValue="Orange"
         />
+
         {/* <TextBox
           _generics={{ rows: "20" }}
           textarea

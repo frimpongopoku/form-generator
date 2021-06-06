@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { lowKeyValidation, NAME } from "../shared/utils/useful";
 import PropTypes from "prop-types";
 import { cx } from "@emotion/css";
 import { radioGroupCSS } from "./_style.radio-group";
@@ -7,11 +8,10 @@ import {
   commonStylePropValues,
 } from "../shared/_shared.proptypes";
 import { putElementInline, raise } from "../shared/_shared.styles";
-const NAME = "____name____";
+
 export default class RadioGroup extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       selected_item: null,
     };
@@ -34,17 +34,11 @@ export default class RadioGroup extends Component {
     if (defaultValue) this.setState({ selected_item: defaultValue });
   }
 
-  isArrayOfObjects() {
-    /** These two values will be passed by developers if "this.props.data" is an array of objects instead of strings */
-    return (
-      this.props.labelFieldName !== NAME && this.props.valueFieldName !== NAME
-    );
-  }
-
   itemIsChecked(value) {
     return value === this.state.selected_item;
   }
   renderContent() {
+    lowKeyValidation(this.props);
     const { data, valueFieldName, labelFieldName, groupStyle, groupClassName } =
       this.props;
     const dealingWithObjs = this.isArrayOfObjects();
